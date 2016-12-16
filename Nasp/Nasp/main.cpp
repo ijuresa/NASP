@@ -6,6 +6,7 @@
 #include <iostream>
 #include <stdio.h>
 #include "ConCan.h"
+#include "GaussianBlur.h"
 
 
 /* 
@@ -26,7 +27,7 @@ int main() {
 		
 
 	inputImg = cv::imread("C:\\Users\\ivanj\\Documents\\Visual Studio 2013\\NASP\\tmpDataset\\"
-							"Original\\IMG7.jpg");
+							"Original\\IMG1.jpg");
 	
 	
 	//Canny and contours TEST
@@ -69,6 +70,13 @@ int main() {
 
 	cv::imshow("Contours", collectedImg);
 	cv::imwrite("Img7ConCan.jpg", collectedImg);
+
+	//cv::imshow("Blurred", newConCan.getInputImageBlurred());
+
+	//Check contour convexity?
+	//bool checkCon = cv::isContourConvex(getContours);
+	//std::cout << "Is?! " << checkCon << std::endl;;
+	
 	
 	
 

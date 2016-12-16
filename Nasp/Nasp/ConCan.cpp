@@ -1,17 +1,11 @@
 
 #include "ConCan.h"
 
-ConCan::ConCan(cv::Mat) {
+ConCan::ConCan(cv::Mat) { }
 
-}
+ConCan::ConCan() { }
 
-ConCan::ConCan() {
-
-}
-
-ConCan::~ConCan() {
-
-}
+ConCan::~ConCan() { }
 
 cv::Mat ConCan::getInputImage() {
 	return _inputImg;
@@ -24,6 +18,8 @@ cv::Mat ConCan::getInputImgGrayscale() {
 cv::Mat ConCan::getInputImageShrinked() {
 	return _inputImgShrinked;
 }
+
+
 
 cv::vector<cv::vector<cv::Point>> ConCan::getContours() {
 	return _contours;
@@ -51,6 +47,7 @@ void ConCan::setInputImage(cv::Mat inputImg) {
 	else { }
 }
 
+//Image should be grayscale (NOT IMPLEMENTED)
 void ConCan::setInputImageCanny(cv::Mat inputImg, int thresh, int maxThresh) { }
 
 void ConCan::setInputImageCanny(int thresh, int maxThresh) {

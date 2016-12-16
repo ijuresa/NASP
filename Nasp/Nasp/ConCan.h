@@ -15,6 +15,8 @@ private:
 	cv::vector<cv::vector<cv::Point>> _contours;
 	cv::vector<cv::Vec4i> _hierarchy;
 
+	//Used for Gaussian Blur
+	int max_kernel_lenght = 31;
 
 public:
 	ConCan(cv::Mat);
@@ -45,6 +47,8 @@ public:
 	cv::Mat ConCan::getInputImageShrinked();
 
 	cv::Mat ConCan::getInputImageCanny();
+
+
 
 	cv::vector<cv::vector<cv::Point>> ConCan::getContours();
 
