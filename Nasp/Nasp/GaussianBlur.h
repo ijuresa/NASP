@@ -6,13 +6,23 @@
 
 class GaussianBlur {
 private:
-	cv::Mat _inputImg, _inputImgGaussianBlurr;
+	cv::Mat _inputImgGrayscale, _inputImgGaussianBlurr;
 public:
-	GaussianBlur(cv::Mat)();
+	GaussianBlur(cv::Mat);
 	GaussianBlur();
 	~GaussianBlur();
 
-	cv::Mat GaussianBlur::getInputImageBlurred();
+	//Show methods
+	void GaussianBlur::showBlurredImage();
+	void GaussianBlur::showGrayscaleImage();
+
+	//Setters
+	void GaussianBlur::setBlurImage(cv::Size());
+	void GaussianBlur::setGrayscaleImage(cv::Mat);
+
+	//Getters
+	cv::Mat GaussianBlur::getGrayscaleImage();
+	cv::Mat GaussianBlur::getBlurImage();
 
 };
 

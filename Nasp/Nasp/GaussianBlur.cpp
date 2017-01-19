@@ -7,16 +7,26 @@ GaussianBlur::GaussianBlur() { }
 
 GaussianBlur::~GaussianBlur() { }
 
+void GaussianBlur::setGrayscaleImage(cv::Mat inputImageGrayscale) {
+	_inputImgGrayscale = inputImageGrayscale;
+}
 
-cv::Mat GaussianBlur::getInputImageBlurred() {
+
+void GaussianBlur::setBlurImage(cv::Size()) {
+	//cv::GaussianBlur
+
+}
+
+
+//TODO: Show images
+
+
+//Getters
+cv::Mat GaussianBlur::getBlurImage() {
 	return _inputImgGaussianBlurr;
 }
 
-/*
-//Check if inputImage needs to be blurred
-if (blurr) {
-	for (int i = 1; i < max_kernel_lenght; i = i + 2) {
-		cv::GaussianBlur(_inputImgShrinked, _inputImgBlurred, cv::Size(i, i),
-			0, 0);
-	}
-}*/
+cv::Mat GaussianBlur::getGrayscaleImage() {
+	return _inputImgGrayscale;
+}
+

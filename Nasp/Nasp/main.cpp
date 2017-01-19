@@ -71,9 +71,9 @@ int main() {
 		secondImgSize.height));
 	newConCan.getInputImageCanny().copyTo(RIGHT);
 
-	cv::imshow("Contours", collectedImg);
+	//cv::imshow("Contours", collectedImg);
 	cv::imwrite("Img7ConCan.jpg", collectedImg);
-
+	
 	//Check contour convexity?
 	//TODO: See how to fix this --> Error: Contours not good enough
 	//bool checkCon = cv::isContourConvex(getContours);
