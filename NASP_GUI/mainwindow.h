@@ -9,10 +9,12 @@
 //OpenCV
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 //Local
 #include <customimage.h>
 #include <customimageholder.h>
+#include <colorblobdetector.h>
 
 namespace Ui {
 class MainWindow;
@@ -31,10 +33,14 @@ private slots:
     void on_findImageButton_clicked();
 
 //Private variables/functions
+    void on_processImageButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     cv::Mat inputImage;
     CustomImageHolder imageHolder;
+
+
 };
 
 #endif // MAINWINDOW_H
