@@ -26,13 +26,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    customimage.cpp \
-    customimageholder.cpp
+    processimage.cpp \
+    ImageProcessing/ColorBlobDetector.cpp \
+    ImageData/ImageData.cpp \
+    ImageData/ImageDataHolder.cpp \
+    GUI/MainWindow.cpp
 
-HEADERS  += mainwindow.h \
-    customimage.h \
-    customimageholder.h
+HEADERS  += \
+    processimage.h \
+    ImageProcessing/ColorBlobDetector.h \
+    ImageData/ImageData.h \
+    ImageData/ImageDataHolder.h \
+    GUI/MainWindow.h
 
 FORMS    += mainwindow.ui
 
