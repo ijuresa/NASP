@@ -15,6 +15,7 @@
 #include <ImageData/ImageData.h>
 #include <ImageData/ImageDataHolder.h>
 #include <ImageProcessing/ColorBlobDetector.h>
+#include <ImageProcessing/ProcessImageData.h>
 
 namespace Ui {
 class MainWindow;

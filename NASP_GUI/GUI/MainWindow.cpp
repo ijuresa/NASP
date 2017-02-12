@@ -48,65 +48,36 @@ void onMouseClick(int event, int x, int y, int flags, void *param) {
     int it = localHolder->it;
     cv::Mat &img = localHolder->holder_S->getShrinked(it);
 
-    switch(event) {
-        case cv::EVENT_LBUTTONDOWN:
-            //TODO: Put in processImageData
-            cv::Rect touchedRect;
-            qDebug() << "Clicked at: " << x << y;
+    ColorBlobDetector &_localBlob = localHolder->blobDetector_S;
+    _localBlob.setPoint(cv::Point(x, y));
 
-            //Calculate starting points for RECT(x, y)
-            touchedRect.x = (x > 4) ?  (x - 4) : 0;
-            touchedRect.y = (y > 4) ? (y -4) : 0;
-            qDebug() << "RectX =" << touchedRect.x << "RectY" << touchedRect.y;
+    switch(flags) {
+        case cv::EVENT_LBUTTONDOWN: {
+            ProcessImageData _temp(cv::Point(x, y));
 
-            //Calculate RectWidth
-            touchedRect.width = (x + 4 < (img).cols) ? x + 4 - touchedRect.x :
-                                (img).cols -touchedRect.x;
-            qDebug() << "Rect width:" << touchedRect.width;
+            //ColorBlobDetector *lBlobDetector = new
+            //   ColorBlobDetector(&localHolder->blobDetector_S, cv::Point(x, y));
 
-            //Calculate RectHeight
-            touchedRect.height = (y + 4 < (img).rows) ? y + 4 -touchedRect.y :
-                                 (img).rows - touchedRect.y;
-            qDebug() << "Rech height:" << touchedRect.height;
+            _localBlob.setHsvColor(_temp.calculateHsv(img), it);
+            _localBlob.processImage(img, it);
 
-            //Get submatrix from touchedRect (8x8)
-            //TODO: put in processImageData
-            cv::Mat touchedRegionRgba = (img)(touchedRect);
-            cv::Mat touchedRegionHsv;
-
-            //Convert from RGB to HSV
-            cv::cvtColor(touchedRegionRgba, touchedRegionHsv,
-                         cv::COLOR_RGB2HSV_FULL);
-
-            //Total value for each HSV element
-            //TODO:Put in processImageData
-            cv::Scalar colorHSV = cv::sum(touchedRegionHsv);
-
-            //Get number of points from calculated rectangle
-            //TODO: Put in processImageData
-            int lPointCount = touchedRect.width * touchedRect.height;
-
-            //Calculate average values by element
-            for(int i = 0; i < colorHSV.rows; i ++) {
-                colorHSV.val[i] /= lPointCount;
-                qDebug() << "On: " << i << "=" << colorHSV.val[i];
-            }
-
-            ColorBlobDetector *lBlobDetector = new
-                    ColorBlobDetector(&localHolder->blobDetector_S);
-
-            lBlobDetector->setHsvColor(colorHSV, it);
-            lBlobDetector->processImage(img, it);
-            localHolder->blobDetectors_S.push_back(lBlobDetector);
-
-            //Release matrices
-            touchedRegionHsv.release();
-            touchedRegionRgba.release();
-            //TODO: Set new Boolean so we know it's touched
             break;
+        }
+
+        case (cv::EVENT_FLAG_SHIFTKEY + cv::EVENT_FLAG_LBUTTON): {
+            ProcessImageData _temp(cv::Point(x, y));
+
+        //ColorBlobDetector *lBlobDetector = new
+        //   ColorBlobDetector(&localHolder->blobDetector_S, cv::Point(x, y));
+
+            _localBlob.setHsvColor(_temp.calculateHsv(img), it);
+            _localBlob.processImage(img, it);
+            localHolder->blobDetectors_S.push_back(&_localBlob);
+
+            break;
+        }
     }
 }
-
 
 void MainWindow::on_processImageButton_clicked() {
     //If none of the images were selected
@@ -118,9 +89,11 @@ void MainWindow::on_processImageButton_clicked() {
     } else {
         //Show and process each image, one by one
         for(int i = 0; i < imageHolder.getCountImages(); i ++) {
+            ColorBlobDetector _localBlob;
             //Assign data to structure
             currHolder_S.holder_S = &imageHolder;
             currHolder_S.it = i;
+            currHolder_S.blobDetector_S = _localBlob;
 
             cv::namedWindow("Windows", 1);
             cv::setMouseCallback("Windows", onMouseClick,
@@ -153,6 +126,6 @@ void MainWindow::on_processImageButton_clicked() {
         }
 
         qDebug() << imageHolder.getCountColors();
-    }
 
+    }
 }
