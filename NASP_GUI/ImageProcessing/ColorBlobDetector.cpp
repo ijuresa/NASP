@@ -2,7 +2,10 @@
 
 ColorBlobDetector::ColorBlobDetector() { }
 
-ColorBlobDetector::ColorBlobDetector(ColorBlobDetector *local) { }
+ColorBlobDetector::ColorBlobDetector(ColorBlobDetector *local, cv::Point
+                                     _clickedAt) {
+    this->clickedAt = _clickedAt;
+}
 
 void ColorBlobDetector::setHsvColor(cv::Scalar hsvColor, int it) {
     this->it;
@@ -39,6 +42,25 @@ void ColorBlobDetector::setHsvColor(cv::Scalar hsvColor, int it) {
     qDebug() << "Exited setHsvColor";
 }
 
+/**
+ * @brief ColorBlobDetector::isContour
+ *          Check if clickedPoint is inside desired contour
+ *
+ * @param _checkMe clickedPoint
+ * @param _lContour Contour to be checked
+ * @return true(1) When Point is inside contour
+ */
+bool ColorBlobDetector::isContour(cv::Point _checkMe,
+                                 cv::vector<cv::Point> _lContour) {
+
+    double r = cv::pointPolygonTest(_lContour, _checkMe, false);
+    qDebug() << "r = " << r;
+
+    //Return only when r == 1 - then Point is inside contour
+    //If it's not then it is r == -1
+    return r == 1;
+}
+
 void ColorBlobDetector::processImage(cv::Mat _inputImage, int it) {
     double minContourArea = 0.1;
 
@@ -49,7 +71,7 @@ void ColorBlobDetector::processImage(cv::Mat _inputImage, int it) {
     cv::dilate(mMask, mDilatedMask, cv::Mat());
 
     cv::vector<cv::vector<cv::Point>> lContours;
-    cv::findContours(mDilatedMask, lContours, mHierarchy, cv::RETR_EXTERNAL,
+    cv::findContours(mDilatedMask, lContours, mHierarchy, cv::RETR_TREE,
                      cv::CHAIN_APPROX_SIMPLE);
 
     qDebug() << "Number of contours" << lContours.size();
@@ -67,10 +89,13 @@ void ColorBlobDetector::processImage(cv::Mat _inputImage, int it) {
 
     mContours.clear();
     lEach = mContours.begin();
+    bool isInside = false;
     for(int i = 0; i < lContours.size(); i ++) {
-        if(cv::contourArea(lContours[i]) > minContourArea * maxArea) {
-            mContours.push_back(lContours[i]);
-            qDebug() << "Contours pushed: " << cv::contourArea(lContours[i]);
+        if((cv::contourArea(lContours[i]) > minContourArea * maxArea)) {
+            if(isInside = isContour(clickedAt, lContours[i])) {
+                mContours.push_back(lContours[i]);
+                qDebug() << "Contours pushed: " << cv::contourArea(lContours[i]);
+            }
         }
     }
 
@@ -82,9 +107,13 @@ void ColorBlobDetector::processImage(cv::Mat _inputImage, int it) {
         cv::drawContours(drawing, mContours, i, color, 2, 8, mHierarchy,
                          0, cv::Point());
     }
+
     cv::namedWindow("Contours", CV_WINDOW_AUTOSIZE);
     cv::imshow("Contours", drawing);
+}
 
+void ColorBlobDetector::setPoint(cv::Point _point) {
+    this->clickedAt = _point;
 }
 
 cv::Scalar ColorBlobDetector::lowerBound() const {
