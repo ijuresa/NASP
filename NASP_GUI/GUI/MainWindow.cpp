@@ -55,9 +55,6 @@ void onMouseClick(int event, int x, int y, int flags, void *param) {
         case cv::EVENT_LBUTTONDOWN: {
             ProcessImageData _temp(cv::Point(x, y));
 
-            //ColorBlobDetector *lBlobDetector = new
-            //   ColorBlobDetector(&localHolder->blobDetector_S, cv::Point(x, y));
-
             _localBlob.setHsvColor(_temp.calculateHsv(img), it);
             _localBlob.processImage(img, it);
 
@@ -66,9 +63,6 @@ void onMouseClick(int event, int x, int y, int flags, void *param) {
 
         case (cv::EVENT_FLAG_SHIFTKEY + cv::EVENT_FLAG_LBUTTON): {
             ProcessImageData _temp(cv::Point(x, y));
-
-        //ColorBlobDetector *lBlobDetector = new
-        //   ColorBlobDetector(&localHolder->blobDetector_S, cv::Point(x, y));
 
             _localBlob.setHsvColor(_temp.calculateHsv(img), it);
             _localBlob.processImage(img, it);
@@ -106,11 +100,8 @@ void MainWindow::on_processImageButton_clicked() {
                 //Assign KEY for waitKey
                 char k = (char)cv::waitKey(0);
 
-                //Is Esc is pressed this for(;;) loop is broken
-                if(k == 27) {
-                    qDebug() << "Entered " << k;
-                    break;
-                }
+                //Check if ESC key is entered, break and display next image
+                if(checkKeyCode(k)) break;
             }
         }
 
@@ -121,11 +112,80 @@ void MainWindow::on_processImageButton_clicked() {
 
         //Save all data from QVector in structure to QVector outside it
         //It is done this way so structure isn't needed anymore
-        for(int i = 0; i < currHolder_S.blobDetectors_S.count(); i ++) {
+        /*for(int i = 0; i < currHolder_S.blobDetectors_S.count(); i ++) {
             imageHolder.saveAll(currHolder_S.blobDetectors_S[i]);
-        }
+        }*/
 
         qDebug() << imageHolder.getCountColors();
-
     }
+}
+
+bool MainWindow::checkKeyCode(int _code) {
+    //Is Esc is pressed this for(;;) loop is broken
+    if(_code == 27) {
+        qDebug() << "New image!!";
+
+        //So for(;;) loop can be broken
+        return 1;
+    }
+
+    //Check if no color has been saved
+    else if(currHolder_S.blobDetectors_S.count() == 0) return 0;
+
+    //Green color save (Press g after pressing SHIFT + LMOUSE)
+    else if(_code == 103) {
+        qDebug() << "Saved green color";
+
+        //FOR TESTING
+        /////////////////////////////////////////////////////////////////////
+        ColorBlobDetector *temp = currHolder_S.blobDetectors_S[0];
+
+        cv::Scalar tempHsv = temp->getHsvColor();
+        qDebug() << "Number = " << currHolder_S.blobDetectors_S.count();
+        for(int i = 0; i < 4; i ++) {
+            qDebug() << "Boja na: " << i << "je " <<tempHsv[i];
+        }
+
+        qDebug() << "Number of objects before " <<
+                    currHolder_S.blobDetectors_S.count();
+
+        //////////////////////////////////////////////////////////////////////
+
+        imageHolder.saveAll(currHolder_S.blobDetectors_S[0]);
+        currHolder_S.blobDetectors_S.pop_back();
+
+        qDebug() << "Number of objects after " <<
+                    currHolder_S.blobDetectors_S.count();
+
+        return 0;
+    }
+
+    //Blue color save (Press b after pressing SHIFT + LMOUSE)
+    else if(_code == 98) {
+        qDebug() << "Entered BLUE";
+
+        return 0;
+    }
+
+    //Yellow color save (Press y after pressing SHIFT + LMOUSE)
+    else if(_code == 121) {
+        qDebug() << "Entered YELLOW";
+
+        return 0;
+    }
+
+    //Orange color save (Press o after pressing SHIFT + LMOUSE)
+    else if(_code == 111) {
+        qDebug() << "Entered ORANGE";
+
+        return 0;
+    }
+
+    //Red color save (Press r after pressing SHIFT + LMOUSE)
+    else if(_code == 114) {
+        qDebug() << "Entered RED";
+
+        return 0;
+    }
+    return 0;
 }

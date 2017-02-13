@@ -29,18 +29,19 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    bool checkKeyCode(int );
+
+
 //Private slots
 private slots:
     void on_findImageButton_clicked();
-
-//Private variables/functions
     void on_processImageButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     cv::Mat inputImage;
-    ImageDataHolder::processImageData_STRUCT currHolder_S;
 
+    ImageDataHolder::processImageData_STRUCT currHolder_S;
     ImageDataHolder imageHolder;
 };
 
