@@ -8,7 +8,8 @@ ColorBlobDetector::ColorBlobDetector(ColorBlobDetector *local, cv::Point
 }
 
 void ColorBlobDetector::setHsvColor(cv::Scalar hsvColor, int it) {
-    this->it;
+    this->it = it;
+    this->hsvColor = hsvColor;
     qDebug() << "Entered setHsvColor";
 
     double minH = (hsvColor.val[0] >= mColorRadius[0]) ? hsvColor.val[0] -
@@ -130,4 +131,69 @@ cv::Scalar ColorBlobDetector::upperBound() const {
 
 void ColorBlobDetector::setUpperBound(const cv::Scalar &upperBound) {
     mUpperBound = upperBound;
+}
+
+cv::Point ColorBlobDetector::getClickedAt() const
+{
+    return clickedAt;
+}
+
+void ColorBlobDetector::setClickedAt(const cv::Point &value)
+{
+    clickedAt = value;
+}
+
+cv::Scalar ColorBlobDetector::getHsvColor() const
+{
+    return hsvColor;
+}
+
+cv::Scalar ColorBlobDetector::getBlueColor() const
+{
+    return blueColor;
+}
+
+void ColorBlobDetector::setBlueColor(const cv::Scalar &value)
+{
+    blueColor = value;
+}
+
+cv::Scalar ColorBlobDetector::getGreenColor() const
+{
+    return greenColor;
+}
+
+void ColorBlobDetector::setGreenColor(const cv::Scalar &value)
+{
+    greenColor = value;
+}
+
+cv::Scalar ColorBlobDetector::getYellowColor() const
+{
+    return yellowColor;
+}
+
+void ColorBlobDetector::setYellowColor(const cv::Scalar &value)
+{
+    yellowColor = value;
+}
+
+cv::Scalar ColorBlobDetector::getOrangeColor() const
+{
+    return orangeColor;
+}
+
+void ColorBlobDetector::setOrangeColor(const cv::Scalar &value)
+{
+    orangeColor = value;
+}
+
+cv::Scalar ColorBlobDetector::getRedColor() const
+{
+    return redColor;
+}
+
+void ColorBlobDetector::setRedColor(const cv::Scalar &value)
+{
+    redColor = value;
 }

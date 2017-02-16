@@ -31,6 +31,26 @@ public:
     cv::Scalar upperBound() const;
     void setUpperBound(const cv::Scalar &upperBound);
 
+    cv::Point getClickedAt() const;
+    void setClickedAt(const cv::Point &value);
+
+    cv::Scalar getHsvColor() const;
+
+    cv::Scalar getBlueColor() const;
+    void setBlueColor(const cv::Scalar &value);
+
+    cv::Scalar getGreenColor() const;
+    void setGreenColor(const cv::Scalar &value);
+
+    cv::Scalar getYellowColor() const;
+    void setYellowColor(const cv::Scalar &value);
+
+    cv::Scalar getOrangeColor() const;
+    void setOrangeColor(const cv::Scalar &value);
+
+    cv::Scalar getRedColor() const;
+    void setRedColor(const cv::Scalar &value);
+
 private:
     //Used for HSV color space
     cv::Scalar mLowerBound;
@@ -40,6 +60,8 @@ private:
     cv::Mat mHsvMat;
     cv::Mat mDilatedMask;
     cv::vector<cv::Vec4i> mHierarchy;
+
+    cv::Scalar hsvColor;
 
     //For later picture localization
     int it;

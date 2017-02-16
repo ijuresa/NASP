@@ -10,7 +10,7 @@ class ImageDataHolder
 public:
     ImageDataHolder();
     int getCountImages();
-    int getCountColors();
+
 
     void createObjects(QStringList );
 
@@ -28,6 +28,7 @@ public:
      * ColorBlobDetector
      * ***********************************************************************/
     void saveAll(ColorBlobDetector *);
+    int getCountColors();
 
 
     //Parsing data onMouseEvent

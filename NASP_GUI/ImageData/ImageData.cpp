@@ -40,6 +40,5 @@ cv::Size ImageData::getSize() {
 }
 
 void ImageData::printOriginalPath() {
-
     qDebug() << "Original Path = " << originalPath;
 }

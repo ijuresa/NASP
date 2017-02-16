@@ -157,3 +157,6 @@ void ImageDataHolder::saveAll(ColorBlobDetector *_input) {
 int ImageDataHolder::getCountColors() {
     return blobDetectors.count();
 }
+
+
+
