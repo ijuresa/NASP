@@ -2,7 +2,6 @@
 #define COLORBLOBDETECTOR_H
 
 //Qt
-#include <QVector>
 #include <QDebug>
 
 //OpenCV
@@ -22,8 +21,7 @@ public:
     void setHsvColor(cv::Scalar ,int );
     void processImage(cv::Mat ,int );
     void saveAll();
-    bool isContour(cv::Point , cv::vector<cv::Point> );
-
+    bool isContour(cv::Point , std::vector<cv::Point> );
 
     cv::Scalar lowerBound() const;
     void setLowerBound(const cv::Scalar &lowerBound);
@@ -59,7 +57,7 @@ private:
     cv::Mat mMask;
     cv::Mat mHsvMat;
     cv::Mat mDilatedMask;
-    cv::vector<cv::Vec4i> mHierarchy;
+    std::vector<cv::Vec4i> mHierarchy;
 
     cv::Scalar hsvColor;
 
@@ -74,11 +72,11 @@ private:
     cv::Scalar redColor;    //back
 
     //Contours
-    cv::vector<cv::Point> topContour;   //greenColor
-    cv::vector<cv::Point> frontContour; //blueColor
-    cv::vector<cv::Point> leftContour;  //orangeColor
-    cv::vector<cv::Point> rightContour; //yellowColor
-    cv::vector<cv::Point> backContour;  //redColor
+    std::vector<cv::Point> topContour;   //greenColor
+    std::vector<cv::Point> frontContour; //blueColor
+    std::vector<cv::Point> leftContour;  //orangeColor
+    std::vector<cv::Point> rightContour; //yellowColor
+    std::vector<cv::Point> backContour;  //redColor
 
     //Clicked point
     cv::Point clickedAt;
@@ -86,7 +84,7 @@ private:
     //Color radius for range checking in HSV space
     cv::Scalar mColorRadius = cv::Scalar(20, 25, 25, 0);
 
-    cv::vector<cv::vector<cv::Point>> mContours;
+    std::vector<std::vector<cv::Point>> mContours;
 };
 
 #endif // COLORBLOBDETECTOR_H

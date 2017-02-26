@@ -46,7 +46,7 @@ void onMouseClick(int event, int x, int y, int flags, void *param) {
             (ImageDataHolder::processImageData_STRUCT *)param;
 
     int it = localHolder->it;
-    cv::Mat &img = localHolder->holder_S->getShrinked(it);
+    cv::Mat img = localHolder->holder_S->getShrinked(it);
 
     ColorBlobDetector &_localBlob = localHolder->blobDetector_S;
     _localBlob.setPoint(cv::Point(x, y));

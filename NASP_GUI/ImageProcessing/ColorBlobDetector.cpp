@@ -52,7 +52,7 @@ void ColorBlobDetector::setHsvColor(cv::Scalar hsvColor, int it) {
  * @return true(1) When Point is inside contour
  */
 bool ColorBlobDetector::isContour(cv::Point _checkMe,
-                                 cv::vector<cv::Point> _lContour) {
+                                 std::vector<cv::Point> _lContour) {
 
     double r = cv::pointPolygonTest(_lContour, _checkMe, false);
     qDebug() << "r = " << r;
@@ -71,12 +71,12 @@ void ColorBlobDetector::processImage(cv::Mat _inputImage, int it) {
 
     cv::dilate(mMask, mDilatedMask, cv::Mat());
 
-    cv::vector<cv::vector<cv::Point>> lContours;
+    std::vector<std::vector<cv::Point>> lContours;
     cv::findContours(mDilatedMask, lContours, mHierarchy, cv::RETR_TREE,
                      cv::CHAIN_APPROX_SIMPLE);
 
     qDebug() << "Number of contours" << lContours.size();
-    cv::vector<cv::vector<cv::Point>>::iterator lEach = lContours.begin();
+    std::vector<std::vector<cv::Point>>::iterator lEach = lContours.begin();
 
     //Find max contourArea
     double maxArea = 0;

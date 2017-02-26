@@ -41,50 +41,26 @@ HEADERS  += \
 
 FORMS    += mainwindow.ui
 
-INCLUDEPATH += C:/Users/Adela/Documents/GitHub/NASP/opencv/build/include/
+INCLUDEPATH += E:/opencv_mingw/install/include
 
-win32:CONFIG(release, debug|release): LIBS += -LC:/Users/Adela/Documents/GitHub/NASP/opencv/build/x64/vc12/lib \
-    -lopencv_calib3d2413 \
-    -lopencv_contrib2413 \
-    -lopencv_core2413 \
-    -lopencv_features2d2413 \
-    -lopencv_flann2413 \
-    -lopencv_gpu2413 \
-    -lopencv_highgui2413 \
-    -lopencv_imgproc2413 \
-    -lopencv_legacy2413 \
-    -lopencv_ml2413 \
-    -lopencv_nonfree2413 \
-    -lopencv_objdetect2413 \
-    -lopencv_photo2413 \
-    -lopencv_ocl2413 \
-    -lopencv_stitching2413 \
-    -lopencv_superres2413 \
-    -lopencv_ts2413 \
-    -lopencv_video2413 \
-    -lopencv_videostab2413
-
-else:win32:CONFIG(debug, debug|release): LIBS += -LC:/Users/Adela/Documents/GitHub/NASP/opencv/build/x64/vc12/lib \
-    -lopencv_calib3d2413d \
-    -lopencv_contrib2413d \
-    -lopencv_core2413d \
-    -lopencv_features2d2413d \
-    -lopencv_flann2413d \
-    -lopencv_gpu2413d \
-    -lopencv_highgui2413d \
-    -lopencv_imgproc2413d \
-    -lopencv_legacy2413d \
-    -lopencv_ml2413d \
-    -lopencv_nonfree2413d \
-    -lopencv_objdetect2413d \
-    -lopencv_photo2413d \
-    -lopencv_ocl2413d \
-    -lopencv_stitching2413d \
-    -lopencv_superres2413d \
-    -lopencv_ts2413d \
-    -lopencv_video2413d \
-    -lopencv_videostab2413d
-
+LIBS += -LE:\\opencv_mingw\\bin \
+    libopencv_core320 \
+    libopencv_highgui320 \
+    libopencv_imgproc320 \
+    libopencv_features2d320 \
+    libopencv_calib3d320 \
+    libopencv_features2d320 \
+    libopencv_flann320 \
+    libopencv_imgcodecs320 \
+    libopencv_ml320 \
+    libopencv_objdetect320 \
+    libopencv_photo320 \
+    libopencv_shape320 \
+    libopencv_stitching320 \
+    libopencv_superres320 \
+    libopencv_video320 \
+    libopencv_videoio320 \
+    libopencv_videostab320
 
 
 
