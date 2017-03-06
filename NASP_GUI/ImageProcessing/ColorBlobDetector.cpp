@@ -100,6 +100,16 @@ void ColorBlobDetector::processImage(cv::Mat _inputImage, int it) {
         }
     }
 
+    //Interpolate
+    std::vector<cv::Point> approxRectangle;
+    double d = 0;
+    do {
+        d = d + 1;
+        cv::approxPolyDP(mContours[0], approxRectangle, d, true);
+        qDebug() << approxRectangle.size() << " " << d;
+    } while (approxRectangle.size() > 4);
+    mContours.push_back(approxRectangle);
+
     cv::RNG rng(12345);
     cv::Mat drawing = cv::Mat::zeros(mDilatedMask.size(), CV_8UC3);
     for(int i = 0; i < mContours.size(); i ++) {
@@ -107,7 +117,30 @@ void ColorBlobDetector::processImage(cv::Mat _inputImage, int it) {
                               rng.uniform(0,255) );
         cv::drawContours(drawing, mContours, i, color, 2, 8, mHierarchy,
                          0, cv::Point());
+
     }
+
+    double width = 6;
+    double distance = 50;
+    double contourArea = cv::contourArea(approxRectangle);
+    if(!isCalculated) {
+        //Width     6.00  cm
+        //Distance  50.00 cm
+
+
+
+        //setFocalLenght((contourArea * distance) / width);
+        setFocalLenght(18887.5);
+        isCalculated = true;
+    }
+
+
+    //qDebug() << "ContourArea = " << contourArea;
+    qDebug() << "FocalLenght = " << getFocalLenght();
+
+    setDistanceToCamera(width, getFocalLenght(), contourArea);
+
+    qDebug() << "Distance to Camera, computed = " << getDistanceToCamera();
 
     cv::namedWindow("Contours", CV_WINDOW_AUTOSIZE);
     cv::imshow("Contours", drawing);
@@ -196,4 +229,26 @@ cv::Scalar ColorBlobDetector::getRedColor() const
 void ColorBlobDetector::setRedColor(const cv::Scalar &value)
 {
     redColor = value;
+}
+
+double ColorBlobDetector::getDistanceToCamera() const
+{
+    return distanceToCamera;
+}
+
+void ColorBlobDetector::setDistanceToCamera(double knownWidth,
+                                            double focalLenght,
+                                            double perceivedWidth) {
+
+    distanceToCamera = (knownWidth * focalLenght) / perceivedWidth;
+}
+
+double ColorBlobDetector::getFocalLenght() const
+{
+    return focalLenght;
+}
+
+void ColorBlobDetector::setFocalLenght(double value)
+{
+    focalLenght = value;
 }

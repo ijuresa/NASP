@@ -104,6 +104,8 @@ void MainWindow::on_processImageButton_clicked() {
                 if(checkKeyCode(k)) break;
             }
         }
+        //Width     6.00  cm
+        //Distance  50.00 cm
 
         //Destroys all windows after last picture calibration
         cv::destroyAllWindows();

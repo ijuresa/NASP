@@ -49,6 +49,13 @@ public:
     cv::Scalar getRedColor() const;
     void setRedColor(const cv::Scalar &value);
 
+    double getDistanceToCamera() const;
+    void setDistanceToCamera(double knownWidth, double focalLenght,
+                             double perceivedWidth);
+
+    double getFocalLenght() const;
+    void setFocalLenght(double value);
+
 private:
     //Used for HSV color space
     cv::Scalar mLowerBound;
@@ -60,6 +67,13 @@ private:
     std::vector<cv::Vec4i> mHierarchy;
 
     cv::Scalar hsvColor;
+
+    //Distance to camera, FIXED
+    double distanceToCamera;
+    double focalLenght;
+
+    //Test
+    bool isCalculated = false;
 
     //For later picture localization
     int it;
